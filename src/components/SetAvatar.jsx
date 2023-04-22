@@ -54,9 +54,9 @@ export default function SetAvatar() {
     }
   };
 
-  const myFunction = async () => {
+  useEffect(async () => {
     const data = [];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 1; i++) {
       const image = await axios.get(
         `${api}/${Math.round(Math.random() * 1000)}`
       );
@@ -65,44 +65,41 @@ export default function SetAvatar() {
     }
     setAvatars(data);
     setIsLoading(false);
-  }
-  useEffect(() => {
-    myFunction();
-  });
+  }, []);
   return (
     <>
-      {/* {isLoading ? (
+      {isLoading ? (
         <Container>
           <img src={loader} alt="loader" className="loader" />
         </Container>
-      ) : ( */}
-      <Container>
-        <div className="title-container">
-          <h1>Pick an Avatar as your profile picture</h1>
-        </div>
-        <div className="avatars">
-          {avatars.map((avatar, index) => {
-            return (
-              <div
-                className={`avatar ${selectedAvatar === index ? "selected" : ""
-                  }`}
-              >
-                <img
-                  src={`data:image/svg+xml;base64,${avatar}`}
-                  alt="avatar"
-                  key={avatar}
-                  onClick={() => setSelectedAvatar(index)}
-                />
-              </div>
-            );
-          })}
-        </div>
-        <button onClick={setProfilePicture} className="submit-btn">
-          Set as Profile Picture
-        </button>
-        <ToastContainer />
-      </Container>
-      {/* )} */}
+      ) : (
+        <Container>
+          <div className="title-container">
+            <h1>Pick an Avatar as your profile picture</h1>
+          </div>
+          <div className="avatars">
+            {avatars.map((avatar, index) => {
+              return (
+                <div
+                  className={`avatar ${selectedAvatar === index ? "selected" : ""
+                    }`}
+                >
+                  <img
+                    src={`data:image/svg+xml;base64,${avatar}`}
+                    alt="avatar"
+                    key={avatar}
+                    onClick={() => setSelectedAvatar(index)}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <button onClick={setProfilePicture} className="submit-btn">
+            Set as Profile Picture
+          </button>
+          <ToastContainer />
+        </Container>
+      )}
     </>
   );
 }
