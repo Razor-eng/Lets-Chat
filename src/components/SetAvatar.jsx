@@ -21,10 +21,12 @@ export default function SetAvatar() {
     theme: "dark",
   };
 
-  useEffect(async () => {
+
+  useEffect(() => {
     if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY))
       navigate("/login");
   }, []);
+
 
   const setProfilePicture = async () => {
     if (selectedAvatar === undefined) {
@@ -52,7 +54,7 @@ export default function SetAvatar() {
     }
   };
 
-  useEffect(async () => {
+  const myFunction = async () => {
     const data = [];
     for (let i = 0; i < 4; i++) {
       const image = await axios.get(
@@ -63,7 +65,10 @@ export default function SetAvatar() {
     }
     setAvatars(data);
     setIsLoading(false);
-  }, []);
+  }
+  useEffect(() => {
+    myFunction();
+  });
   return (
     <>
       {/* {isLoading ? (
